@@ -7,6 +7,13 @@ const COUNT = ["One bork","Two borks","Pack chorus"];
 const PITCH = ["Squeaky","Middle","Thunder"];
 const URGENCY = ["Casual sniff","Snack request","Snack emergency"];
 const SQUIRREL = ["0%","50%","100%"];
+// Put this near the other constants
+const USER_GIFS = [
+  "/gifs/talking-ben.gif",
+  "/gifs/dog-blah-blah-blah.gif",
+  "/gifs/dog-talk-dog.gif",
+  "/gifs/dog-phone.gif"
+];
 
 const BORK_TRANSLATIONS = [
   "I loudly informed the couch that it’s suspicious. Couch did not deny.",
@@ -92,9 +99,12 @@ export default function Page() {
   }
 
   function translate() {
-    const line = pick(BORK_TRANSLATIONS);
-    setTranslation(line);
-    if (gifsOn) setGifUrl(pickGif({ urgency, squirrel, zoomies }));
+  const line = pick(BORK_TRANSLATIONS);
+  setTranslation(line);
+  if (gifsOn) {
+    const local = USER_GIFS.length ? pick(USER_GIFS) : null;
+    setGifUrl(local ?? pickGif({ urgency, squirrel, zoomies })); // fallback if none uploaded
+   }
   }
 
   return (
